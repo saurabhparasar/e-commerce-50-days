@@ -4,8 +4,10 @@ import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import StorefrontIcon from "@material-ui/icons/Storefront";
 import SearchIcon from "@material-ui/icons/Search";
 import { Outlet, Link } from "react-router-dom";
+import { useStateValue } from "./StateProvider";
 
 function Header() {
+  const [{ basket }, dispatch] = useStateValue();
   return (
     <Fragment>
       <div className="header">
@@ -22,10 +24,12 @@ function Header() {
         </div>
 
         <div className="header__nav">
-          <div className="nav__item">
-            <span className="nav__itemLineOne">hello guest</span>
-            <span className="nav__itemLineTwo">sign in</span>
-          </div>
+          <Link to="/login" style={{ textDecoration: "none" }}>
+            <div className="nav__item">
+              <span className="nav__itemLineOne">Hello Guest</span>
+              <span className="nav__itemLineTwo">Sign In</span>
+            </div>
+          </Link>
           <div className="nav__item">
             <span className="nav__itemLineOne">your</span>
             <span className="nav__itemLineTwo">shop</span>
@@ -33,7 +37,9 @@ function Header() {
           <Link to="/checkout">
             <div className="nav__itemBasket">
               <ShoppingBasketIcon />
-              <span className="nav__itemLineTwo nav__basketCount">0</span>
+              <span className="nav_itemLineTwo nav_basketCount">
+                {basket.length}
+              </span>
             </div>
           </Link>
         </div>
